@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>UTM Greenleaf – Registration</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="REGISTRATION">
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <img src="assets/logo.png" alt="UTM Greenleaf"/>
+        <span>UTM Greenleaf</span>
+      </div>
+      <nav>
+        <div class="navlinks">
+          <a href="index.html" data-page="HOME">HOME</a>
+          <a href="greenleaf.html" data-page="GREENLEAF">UTM GREENLEAF</a>
+          <a href="registration.html" data-page="REGISTRATION">REGISTRATION</a>
+          <a href="login.html" data-page="LOGIN">LOGIN</a>
+          <a href="about.html" data-page="ABOUT">ABOUT US</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding:28px 0;max-width:760px">
+    <h2 style="font-size:30px;font-weight:900;margin:0 0 8px">Create your account</h2>
+    <p class="helper">Join UTM Greenleaf as Student, Faculty, Staff, or Admin.</p>
+
+    <div class="card">
+      <div class="form">
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label class="helper">Full name</label>
+            <input id="name" class="input" placeholder="Your name"/>
+          </div>
+          <div>
+            <label class="helper">Email</label>
+            <input id="email" class="input" placeholder="you@utm.edu.my"/>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label class="helper">Role</label>
+            <select id="role" class="input">
+              <option>Student</option><option>Faculty</option><option>Staff</option><option>Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label class="helper">Password</label>
+            <input id="pass" type="password" class="input" placeholder="••••••••"/>
+            <div class="helper">Min 8 chars. Use upper/lowercase, digits.</div>
+          </div>
+          <div>
+            <label class="helper">Confirm password</label>
+            <input id="confirm" type="password" class="input" placeholder="••••••••"/>
+          </div>
+        </div>
+
+        <label style="display:flex;gap:8px;align-items:center">
+          <input id="agree" type="checkbox"/> <span class="helper">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</span>
+        </label>
+
+        <button id="create" class="btn primary">Create account</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const el = (id)=>document.getElementById(id);
+    document.getElementById('create').addEventListener('click',()=>{
+      const name = el('name').value.trim();
+      const email = el('email').value.trim();
+      const role = el('role').value;
+      const pass = el('pass').value;
+      const conf = el('confirm').value;
+      const agree = el('agree').checked;
+
+      if(!name) return alert('Name is required');
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return alert('Enter a valid email');
+      if(pass.length < 8) return alert('Password must be at least 8 characters');
+      if(pass !== conf) return alert('Passwords do not match');
+      if(!agree) return alert('Please agree to the Terms & Privacy');
+
+      GreenleafAuth.setUser({id:crypto.randomUUID(), name, email, role});
+      alert('Account created! You are now logged in.');
+      window.location.href = 'greenleaf.html';
+    });
+  </script>
+</body>
+</html>

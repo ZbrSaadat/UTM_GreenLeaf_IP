@@ -5,4 +5,4 @@ Front-End Stack: HTML 5, CSS 3, JavaScript
 Final Deployment:  Spring MVC Framework
 
 
-PASHMIA - TAHIYA - FATIMA - ZABIR
+PASHMIA - TAHIYA - FATEMA - ZABIR
